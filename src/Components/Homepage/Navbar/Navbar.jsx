@@ -1,14 +1,15 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom"; // Import NavLink
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
   const handleLogout = () => {
     logOut()
-      .then(() => console.log("Successfull"))
+      .then(() => console.log("Successful"))
       .catch((error) => console.log(error));
   };
+
   return (
     <div>
       <div className="navbar bg-teal-400">
@@ -35,33 +36,33 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a>Home</a>
+                <NavLink to="/">Home</NavLink> 
               </li>
               <li>
-                <a>Add Job</a>
+                <NavLink to="/add-job">Add Job</NavLink> 
               </li>
               <li>
-                <a>My Posted Job</a>
+                <NavLink to="/my-posted-job">My Posted Job</NavLink> 
               </li>
               <li>
-                <a>My Bids</a>
+                <NavLink to="/my-bids">My Bids</NavLink> 
               </li>
               <li>
-                <a>Parent</a>
+                <NavLink to="/parent">Parent</NavLink> 
                 <ul className="p-2">
                   <li>
-                    <a>Submenu 1</a>
+                    <NavLink to="/submenu-1">Submenu 1</NavLink> 
                   </li>
                   <li>
-                    <a>Submenu 2</a>
+                    <NavLink to="/submenu-2">Submenu 2</NavLink> 
                   </li>
                 </ul>
               </li>
               <li>
-                <a>Bid Requests</a>
+                <NavLink to="/bid-requests">Bid Requests</NavLink> 
               </li>
               <li>
-                <a>Bid Requests</a>
+                <NavLink to="/bid-requests">Bid Requests</NavLink> 
               </li>
             </ul>
           </div>
@@ -72,39 +73,39 @@ const Navbar = () => {
               alt=""
             />
           </a>
-          <a className="normal-case text-lg font-semibold" href="/">
-            OMP
-          </a>
+          <NavLink to="/" className="normal-case text-lg font-semibold">
+            JobBook
+          </NavLink>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <a>Home</a>
+              <NavLink to="/">Home</NavLink> 
             </li>
             <li>
-              <a>Add Job</a>
+              <NavLink to="/add-job">Add Job</NavLink> 
             </li>
             <li>
-              <a>My Posted Job</a>
+              <NavLink to="/my-posted-job">My Posted Job</NavLink> 
             </li>
             <li>
-              <a>My Bids</a>
+              <NavLink to="/my-bids">My Bids</NavLink> 
             </li>
             <li tabIndex={0}>
               <details>
                 <summary>Parent</summary>
                 <ul className="p-2">
                   <li>
-                    <a>Submenu 1</a>
+                    <NavLink to="/submenu-1">Submenu 1</NavLink> 
                   </li>
                   <li>
-                    <a>Submenu 2</a>
+                    <NavLink to="/submenu-2">Submenu 2</NavLink> 
                   </li>
                 </ul>
               </details>
             </li>
             <li>
-              <a>Bid Requests</a>
+              <NavLink to="/bid-requests">Bid Requests</NavLink> 
             </li>
           </ul>
         </div>
