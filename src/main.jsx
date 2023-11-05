@@ -10,6 +10,8 @@ import Layout from './Components/Layout/Layout.jsx';
 import Login from './Components/RegisterLogin/Login/Login.jsx';
 import Register from './Components/RegisterLogin/Register/Register.jsx';
 import AuthProvider from './Components/AuthProvider/AuthProvider.jsx';
+import AddJob from './Components/AddJob/AddJob.jsx';
+import MyPostedJob from './Components/MyPostedJob/MyPostedJob.jsx';
 
 
 const router = createBrowserRouter([
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "/add-job",
+        element: <AddJob></AddJob>,
+      },
+      {
+        path: "/my-posted-job",
+        element: <MyPostedJob></MyPostedJob>
       },
       {
         path: "/login",
