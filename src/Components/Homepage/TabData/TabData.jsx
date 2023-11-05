@@ -1,116 +1,42 @@
+import { useState } from "react";
+import { useLoaderData } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
 const TabData = () => {
+  const jobData = useLoaderData();
+  const [selectedCategory, setSelectedCategory] = useState("Web Development");
+
+  // Filter data based on selected category
+  const filteredData = jobData.filter((job) => job.category === selectedCategory);
+
   return (
-    <div>
+    <div className="text-center">
+      <h2>{filteredData.length}</h2>
       <Tabs>
         <TabList>
-          <Tab>Web Development</Tab>
-          <Tab>Digital Marketing</Tab>
-          <Tab>Graphics Design</Tab>
+          <Tab onClick={() => setSelectedCategory("Web Development")}>Web Development</Tab>
+          <Tab onClick={() => setSelectedCategory("Digital Marketing")}>Digital Marketing</Tab>
+          <Tab onClick={() => setSelectedCategory("Graphics Design")}>Graphics Design</Tab>
         </TabList>
 
-        <TabPanel>
-          <div className="w-72 bg-white rounded-lg shadow-md m-4">
-            <div className="p-4">
-              <h3 className="text-2xl font-bold mb-2">Job Title</h3>
-              <p className="text-gray-600 text-sm mb-2">
-                Deadline: May 31, 2023
-              </p>
-              <p className="text-gray-600 text-sm mb-2">
-                Price Range: $500 - $800
-              </p>
-              <p className="text-base mb-4">
-                Short description of the job goes here. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit.
-              </p>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
-                Bid Now
-              </button>
-            </div>
-            <div className="bg-gray-100 p-4">
-              <p className="text-gray-600 text-sm mb-2">
-                Additional Field 1: Value 1
-              </p>
-              <p className="text-gray-600 text-sm mb-2">
-                Additional Field 2: Value 2
-              </p>
-            </div>
-          </div>
-        </TabPanel>
-
-
-
-
-
-
-
-        
-        <TabPanel>
-          <h2>
+        {filteredData.map((job, index) => (
+          <TabPanel key={index}>
             <div className="w-72 bg-white rounded-lg shadow-md m-4">
               <div className="p-4">
-                <h3 className="text-2xl font-bold mb-2">Job Title</h3>
+                <h3 className="text-2xl font-bold mb-2">{job.jobTitle}</h3>
+                <p className="text-gray-600 text-sm mb-2">Deadline: {job.deadline}</p>
                 <p className="text-gray-600 text-sm mb-2">
-                  Deadline: May 31, 2023
+                  Price Range: ${job.minPrice} - ${job.maxPrice}
                 </p>
-                <p className="text-gray-600 text-sm mb-2">
-                  Price Range: $500 - $800
-                </p>
-                <p className="text-base mb-4">
-                  Short description of the job goes here. Lorem ipsum dolor sit
-                  amet, consectetur adipiscing elit.
-                </p>
+                <p className="text-base mb-4">{job.description}</p>
                 <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
                   Bid Now
                 </button>
               </div>
-              <div className="bg-gray-100 p-4">
-                <p className="text-gray-600 text-sm mb-2">
-                  Additional Field 1: Value 1
-                </p>
-                <p className="text-gray-600 text-sm mb-2">
-                  Additional Field 2: Value 2
-                </p>
-              </div>
             </div>
-          </h2>
-        </TabPanel>
-
-
-
-
-
-
-        <TabPanel>
-          <div className="w-72 bg-white rounded-lg shadow-md m-4">
-            <div className="p-4">
-              <h3 className="text-2xl font-bold mb-2">Job Title</h3>
-              <p className="text-gray-600 text-sm mb-2">
-                Deadline: May 31, 2023
-              </p>
-              <p className="text-gray-600 text-sm mb-2">
-                Price Range: $500 - $800
-              </p>
-              <p className="text-base mb-4">
-                Short description of the job goes here. Lorem ipsum dolor sit
-                amet, consectetur adipiscing elit.
-              </p>
-              <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
-                Bid Now
-              </button>
-            </div>
-            <div className="bg-gray-100 p-4">
-              <p className="text-gray-600 text-sm mb-2">
-                Additional Field 1: Value 1
-              </p>
-              <p className="text-gray-600 text-sm mb-2">
-                Additional Field 2: Value 2
-              </p>
-            </div>
-          </div>
-        </TabPanel>
+          </TabPanel>
+        ))}
       </Tabs>
     </div>
   );

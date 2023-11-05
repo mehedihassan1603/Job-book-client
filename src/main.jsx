@@ -12,6 +12,7 @@ import Register from './Components/RegisterLogin/Register/Register.jsx';
 import AuthProvider from './Components/AuthProvider/AuthProvider.jsx';
 import AddJob from './Components/AddJob/AddJob.jsx';
 import MyPostedJob from './Components/MyPostedJob/MyPostedJob.jsx';
+import TabData from './Components/Homepage/TabData/TabData.jsx';
 
 
 const router = createBrowserRouter([
@@ -22,10 +23,16 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+        loader: ()=> fetch('http://localhost:5000/job')
       },
       {
         path: "/job",
         element: <AddJob></AddJob>,
+      },
+      {
+        path: "/jobdata",
+        element: <TabData></TabData>,
+        loader: ()=> fetch('http://localhost:5000/job')
       },
       {
         path: "/my-posted-job",
