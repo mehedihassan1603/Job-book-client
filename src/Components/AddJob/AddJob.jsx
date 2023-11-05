@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -23,14 +24,26 @@ const AddJob = ({ employerEmail }) => {
     e.preventDefault();
     console.log(job);
 
-    // Your fetch request to submit the job data to the server goes here
-    // ...
-
-    // Example success notification
-    toast.success("Job added successfully!", {
-      position: toast.POSITION.TOP_CENTER,
-      autoClose: 2000,
-    });
+    fetch("http://localhost:5000/job", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(job),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.insertedId) {
+          toast.success("Add Product successfully!", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+          setTimeout(() => {
+            Navigate(`/`);
+          }, 2000);
+        }
+      });
   };
 
   const handleChange = (e) => {
