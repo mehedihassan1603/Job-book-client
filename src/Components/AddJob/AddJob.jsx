@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../AuthProvider/AuthProvider";
@@ -13,7 +13,7 @@ const AddJob = () => {
     deadline: "",
     description: "",
     category: "Select Category",
-    jobNature: "Select One",
+    // jobNature: "Select One",
     minPrice: 0,
     maxPrice: 0,
     postedOn: "", // Add the "Published on" date field
@@ -24,7 +24,7 @@ const AddJob = () => {
     "Digital Marketing",
     "Graphics Design",
   ];
-  const jobNatures = ["Full Time", "Part Time"];
+  // const jobNatures = ["Full Time", "Part Time"];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,10 +33,10 @@ const AddJob = () => {
       toast.error("Please select a category.");
       return;
     }
-    if(job.jobNature === "Select One"){
-      toast.error("Please select a Job Nature")
-      return;
-    }
+    // if(job.jobNature === "Select One"){
+    //   toast.error("Please select a Job Nature")
+    //   return;
+    // }
 
 
     // Get the current date and time
@@ -151,7 +151,7 @@ const AddJob = () => {
             ))}
           </select>
         </div>
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="jobNature" className="block text-gray-600">
             Job Nature:
           </label>
@@ -169,7 +169,7 @@ const AddJob = () => {
               </option>
             ))}
           </select>
-        </div>
+        </div> */}
         <div className="mb-4">
           <label htmlFor="minPrice" className="block text-gray-600">
             Minimum Price:

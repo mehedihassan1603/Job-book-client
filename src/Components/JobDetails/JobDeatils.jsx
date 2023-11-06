@@ -12,9 +12,10 @@ const JobDetails = () => {
 
   const [bid, setBid] = useState({
     price: 0,
-    deadline: job.deadline,
+    deadline: "",
     email: user ? user.email : "",
     buyerEmail: job.employerEmail,
+    jobTitle: job.jobTitle,
   });
 
   function formatDate(dateString) {
@@ -40,6 +41,7 @@ const JobDetails = () => {
       email: bid.email,
       buyerEmail: bid.buyerEmail,
       jobId: job._id, // Add the job ID to link the bid to the job
+      jobTitle: job.jobTitle,
     };
 
     fetch('http://localhost:5000/bidjob', {
@@ -87,8 +89,8 @@ const JobDetails = () => {
             type="date"
             id="deadline"
             name="deadline"
-            value={job.deadline}
-            readOnly
+            value={bid.deadline}
+            
             onChange={(e) => setBid({ ...bid, deadline: e.target.value })}
             required
           />
