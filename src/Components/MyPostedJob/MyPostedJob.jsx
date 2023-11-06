@@ -1,83 +1,89 @@
+import { useContext, useState } from "react";
+import { Link, useLoaderData } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import Swal from "sweetalert2";
 
-const MyPostedJob = ({job}) => {
+const MyPostedJob = () => {
+  const allJobs = useLoaderData();
+  const [jobs, setJobs] = useState(allJobs);
+  console.log(jobs);
+  const { user } = useContext(AuthContext);
+
+  if (!user) {
     return (
-        
-    <div className="bg-gray-200 w-9/12 mt-4 mx-auto p-4 rounded-lg">
-      <h1 className="text-2xl font-bold bg-slate-800 py-2 rounded-lg text-center text-white mb-4">
-        My Posted Job
-      </h1>
-      <div className="mb-4">
-        <label className="block text-gray-600">Email:</label>
-        <input
-          type="text"
-          value={job.email}
-          readOnly
-          className="w-full border p-2 rounded-md bg-gray-100"
-        />
+      <div>
+        <p>Loading</p>
       </div>
-      <div className="mb-4">
-        <label className="block text-gray-600">Job Title:</label>
-        <input
-          type="text"
-          value={job.jobTitle}
-          readOnly
-          className="w-full border p-2 rounded-md bg-gray-100"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-600">Deadline:</label>
-        <input
-          type="text"
-          value={job.deadline}
-          readOnly
-          className="w-full border p-2 rounded-md bg-gray-100"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-600">Description:</label>
-        <textarea
-          value={job.description}
-          readOnly
-          className="w-full border p-2 rounded-md bg-gray-100"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-600">Category:</label>
-        <input
-          type="text"
-          value={job.category}
-          readOnly
-          className="w-full border p-2 rounded-md bg-gray-100"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-600">Minimum Price:</label>
-        <input
-          type="text"
-          value={job.minPrice}
-          readOnly
-          className="w-full border p-2 rounded-md bg-gray-100"
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-600">Maximum Price:</label>
-        <input
-          type="text"
-          value={job.maxPrice}
-          readOnly
-          className="w-full border p-2 rounded-md bg-gray-100"
-        />
-      </div>
-      <div className="flex justify-center items-center">
-        <button
-          type="button"
-          className="px-5 py-2 rounded-3xl text-lg card-hover mt-4 bg-gradient-to-r from-orange-500 via-rose-300 to-orange-500"
-        >
-          Update
-        </button>
-      </div>
-    </div>
     );
+  }
+  const filterMyJobs = jobs.filter((job) => job.employerEmail === user.email);
+
+  const handleDelete = async (_id) => {
+    console.log(_id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await fetch(`http://localhost:5000/job/${_id}`, {
+            method: "DELETE",
+          });
+  
+          if (response.ok) {
+            const data = await response.json();
+            console.log(data);
+  
+            if (data.deletedCount > 0) {
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              const remaining = jobs.filter((job) => job._id !== _id);
+  
+              setJobs(remaining);
+            }
+          } else {
+            // Handle any non-successful response here
+            Swal.fire("Error", "Failed to delete the job.", "error");
+          }
+        } catch (error) {
+          console.error("Error deleting job:", error);
+          // Handle the error (e.g., show an error message)
+          Swal.fire("Error", "An error occurred while deleting the job.", "error");
+        }
+      }
+    });
+  };
+  
+  return (
+    <div>
+      <h1 className="text-2xl font-bold">My Posted Jobs</h1>
+      {filterMyJobs.map((job) => (
+        <div key={job._id} className="bg-white p-4 my-4 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold">{job.jobTitle}</h2>
+          <p>Deadline: {job.deadline}</p>
+          <p>Category: {job.category}</p>
+          <p>Description: {job.description}</p>
+          <div className="mt-4">
+            <Link to={`/update/${job._id}`}>
+              <button className="px-5 py-2 rounded-3xl text-lg card-hover mt-4 bg-gradient-to-r from-rose-500 via-rose-300 to-rose-500">
+                Update
+              </button>
+            </Link>
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={() => handleDelete(job._id)}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default MyPostedJob;

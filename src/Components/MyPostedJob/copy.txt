@@ -1,0 +1,85 @@
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { useLoaderData } from "react-router-dom";
+import Swal from 'sweetalert2'
+
+const MyPostedJob = () => {
+  const allJobs = useLoaderData();
+  const [jobs, setJobs] = useState(allJobs);
+  console.log(jobs);
+  const { user } = useContext(AuthContext);
+
+  if(!user){
+    return(
+      <div>
+        <p>Loading</p>
+      </div>
+    );
+  }
+  const filterMyJobs = jobs.filter(job => job.employerEmail === user.email)
+
+  const handleDelete = (id) => {
+    console.log(id);
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          
+          fetch(`http://localhost:5000/job/${id}`,{
+            method: 'DELETE'
+          })
+          .then(res=>res.json())
+          .then(data=>{
+            console.log(data);
+            if(data.deletedCount > 0){
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+                  const remaining = jobs.filter(job => job._id !== id);
+                  
+                  setJobs(remaining);
+                  
+            }
+          })
+        }
+      })
+};
+
+  return (
+    <div>
+      <h1 className="text-2xl font-bold">My Posted Jobs</h1>
+      {filterMyJobs.map((job) => (
+        <div key={job._id} className="bg-white p-4 my-4 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold">{job.jobTitle}</h2>
+          <p>Deadline: {job.deadline}</p>
+          <p>Category: {job.category}</p>
+          <p>Description: {job.description}</p>
+          <div className="mt-4">
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+              // onClick={() => handleUpdateJob(job._id)}
+            >
+              Update
+            </button>
+            <button
+              className="bg-red-500 text-white px-4 py-2 rounded"
+              onClick={() => handleDelete(job._id)}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default MyPostedJob;
