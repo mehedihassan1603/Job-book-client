@@ -29,6 +29,16 @@ const AddJob = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (job.category === "Select Category") {
+      toast.error("Please select a category.");
+      return;
+    }
+    if(job.jobNature === "Select One"){
+      toast.error("Please select a Job Nature")
+      return;
+    }
+
+
     // Get the current date and time
     const currentDate = new Date();
 
@@ -152,6 +162,7 @@ const AddJob = () => {
             onChange={handleChange}
             className="w-full border p-2 rounded-md"
           >
+            <option value="Select One">Select One</option>
             {jobNatures.map((jobNature) => (
               <option key={jobNature} value={jobNature}>
                 {jobNature}

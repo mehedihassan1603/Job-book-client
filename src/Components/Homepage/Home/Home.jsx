@@ -1,6 +1,6 @@
 import Banner from "../Banner/Banner";
 import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 
@@ -57,9 +57,11 @@ const Home = () => {
                       <p className="text-base mb-2">
                         Job Nature: {job.jobNature}
                       </p>
-                      <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 text-sm">
+                      <Link to={`/details/${job._id}`}>
+                      <button className="px-5 py-2 rounded-3xl text-lg card-hover mt-4 bg-gradient-to-r from-teal-500 via-teal-300 to-teal-500">
                         Bid Now
                       </button>
+                    </Link>
                     </div>
                   </div>
                 ))}

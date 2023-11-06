@@ -13,6 +13,7 @@ import AuthProvider from './Components/AuthProvider/AuthProvider.jsx';
 import AddJob from './Components/AddJob/AddJob.jsx';
 import MyPostedJob from './Components/MyPostedJob/MyPostedJob.jsx';
 import TabData from './Components/Homepage/TabData/TabData.jsx';
+import JobDetails from './Components/JobDetails/JobDeatils.jsx';
 
 
 const router = createBrowserRouter([
@@ -33,6 +34,11 @@ const router = createBrowserRouter([
         path: "/jobdata",
         element: <TabData></TabData>,
         loader: ()=> fetch('http://localhost:5000/job')
+      },
+      {
+        path: "/details/:_id",
+        loader: () => fetch("http://localhost:5000/job"),
+        element: <JobDetails></JobDetails>
       },
       {
         path: "/my-posted-job",
