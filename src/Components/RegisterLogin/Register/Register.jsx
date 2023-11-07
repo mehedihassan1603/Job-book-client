@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
+import { Helmet } from "react-helmet";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
@@ -51,6 +52,11 @@ const Register = () => {
       }
     }
   };
+  useEffect(() => {
+    document.title = "Job-Book|Registration";
+    const favicon = document.querySelector("link[rel*='icon']");
+    favicon.href = "/public/register-icon.png";
+  }, []);
 
   return (
     <div className="min-h-screen bg-sky-900 flex flex-col items-center justify-center">

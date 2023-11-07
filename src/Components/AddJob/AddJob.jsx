@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import { Helmet } from "react-helmet";
 
 const AddJob = () => {
   const { user } = useContext(AuthContext);
@@ -74,6 +75,12 @@ const AddJob = () => {
     const { name, value } = e.target;
     setJob({ ...job, [name]: value });
   };
+  useEffect(() => {
+    document.title = "Job-Book | Add Job";
+    const favicon = document.querySelector("link[rel*='icon']");
+    favicon.href = "/public/addjob.png";
+  }, []);
+
 
   return (
     <div className="bg-gray-200 w-9/12 mt-10 mx-auto p-6 rounded-lg">

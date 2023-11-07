@@ -3,6 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const { signInUser, signInWithGoogle } = useContext(AuthContext);
@@ -62,6 +63,11 @@ const Login = () => {
       })
   }
 
+  useEffect(() => {
+    document.title = "Job-Book|Login";
+    const favicon = document.querySelector("link[rel*='icon']");
+    favicon.href = "/public/login.JPG";
+  }, []);
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-sky-900">
       <div className="bg-orange-300 p-8 rounded-lg shadow-md w-96">

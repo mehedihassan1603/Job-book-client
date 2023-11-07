@@ -1,6 +1,8 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 
 const Update = () => {
   const loadedProduct = useLoaderData();
@@ -58,6 +60,11 @@ const Update = () => {
       });
   };
 
+  useEffect(() => {
+    document.title = "Job-Book|Update";
+    const favicon = document.querySelector("link[rel*='icon']");
+    favicon.href = "/public/update.png";
+  }, []);
   return (
     <div className="bg-gray-200 w-9/12 mt-10 mx-auto p-6 rounded-lg">
       <h1 className="text-2xl font-bold bg-slate-800 py-2 rounded-lg text-center text-white mb-4">Update Product</h1>

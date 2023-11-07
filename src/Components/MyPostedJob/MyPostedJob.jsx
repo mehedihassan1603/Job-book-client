@@ -2,6 +2,8 @@ import { useContext, useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 
 const MyPostedJob = () => {
   const allJobs = useLoaderData();
@@ -57,6 +59,12 @@ const MyPostedJob = () => {
       }
     });
   };
+
+  useEffect(() => {
+    document.title = "Job-Book|Posted Jobs";
+    const favicon = document.querySelector("link[rel*='icon']");
+    favicon.href = "/public/more.png";
+  }, []);
   
   return (
     <div>

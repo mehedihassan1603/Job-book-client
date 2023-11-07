@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "react-step-progress-bar/styles.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
+import { Helmet } from "react-helmet";
 
 const BidRequests = () => {
   const requestsjobs = useLoaderData();
@@ -21,10 +22,7 @@ const BidRequests = () => {
   const filterBidRequests = bidRequests.filter(
     (bid) => bid.buyerEmail === user.email
   );
-  // const filterBidRequests = bidRequests.filter((request) => {
-  //   return request.buyerEmail === user.email || request.status === "pending";
-  // });
-
+  
   console.log(filterBidRequests.length);
 
   const handleAccept = (id) => {
@@ -77,6 +75,11 @@ const BidRequests = () => {
         }
       });
   };
+  useEffect(() => {
+    document.title = "Job-Book | Bid Requests";
+    const favicon = document.querySelector("link[rel*='icon']");
+    favicon.href = "/public/360_F_437336235_GQgGcRGWJkzl4edOLW3vUnVlbpvSIdsP.jpg";
+  }, []);
 
   return (
     <div>
@@ -140,7 +143,7 @@ const BidRequests = () => {
       <ProgressBar
         percent={0}
         text="0%"
-        filledBackground="linear-gradient(to right, #FF0000, #990000)"
+        filledBackground="linear-gradient(to right, #B5B7B7, #B5B7B7)"
       ></ProgressBar>
     </div>
   )}

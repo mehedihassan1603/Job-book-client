@@ -3,6 +3,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useLoaderData } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet";
 
 const MyBids = () => {
   const bidJob = useLoaderData();
@@ -56,6 +57,15 @@ const MyBids = () => {
     }
     // Add more sorting criteria if needed
   });
+
+
+  useEffect(() => {
+    // Set the dynamic title and favicon here
+    document.title = "Job-Book | My Bids";
+    const favicon = document.querySelector("link[rel*='icon']");
+    favicon.href = "/public/icons8-favicon-48.png"; // Replace with the path to your favicon
+  }, []);
+
 
   return (
     <div>

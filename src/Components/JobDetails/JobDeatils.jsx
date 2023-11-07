@@ -3,6 +3,8 @@ import { useLoaderData, useParams } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 
 const JobDetails = () => {
   const { user } = useContext(AuthContext);
@@ -64,6 +66,11 @@ const JobDetails = () => {
         }
       });
   }
+  useEffect(() => {
+    document.title = "Job-Book | Details";
+    const favicon = document.querySelector("link[rel*='icon']");
+    favicon.href = "/public/details.png";
+  }, []);
 
   return (
     <div className="p-6">

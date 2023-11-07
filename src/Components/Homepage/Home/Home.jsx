@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
+import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 
 const Home = () => {
   const jobData = useLoaderData();
@@ -14,6 +16,11 @@ const Home = () => {
     groupedData[category] = jobData.filter((job) => job.category === category);
   });
 
+  useEffect(() => {
+    document.title = "Job-Book|Home";
+    const favicon = document.querySelector("link[rel*='icon']");
+    favicon.href = "/public/logo-removebg-preview.png";
+  }, []);
   return (
     <div>
       <Banner />
