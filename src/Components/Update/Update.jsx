@@ -52,7 +52,7 @@ const Update = () => {
             autoClose: 2000,
           });
           setTimeout(() => {
-            navigate(`/brand/${brand}`);
+            navigate(`/`);
           }, 2000);
         }
       });

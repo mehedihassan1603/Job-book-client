@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useLoaderData } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyBids = () => {
   const bidJob = useLoaderData();
@@ -9,14 +11,29 @@ const MyBids = () => {
 
   const handleCompleteBid = (bidId) => {
     // Find the bid with the given bidId and mark it as complete
-    const updatedBids = bids.map((bid) => {
-      if (bid._id === bidId) {
-        return { ...bid, status: "complete" };
-      }
-      return bid;
-    });
-
-    setBids(updatedBids);
+    const updatedStatus = "complete";
+  
+    fetch(`http://localhost:5000/bidjob/${bidId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: updatedStatus }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("Bid status updated to 'completed' successfully!", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+  
+          // After updating the status, you can choose to refresh the list of bid requests or perform any other action.
+          // Example: You can call a function to refresh the list of bid requests.
+          // refreshBidRequests();
+        }
+      });
   };
 
   if (!user) {
@@ -64,6 +81,7 @@ const MyBids = () => {
           ))}
         </tbody>
       </table>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };
