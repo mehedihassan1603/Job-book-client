@@ -4,29 +4,32 @@ import { useLoaderData } from "react-router-dom";
 
 const MyBids = () => {
   const bidJob = useLoaderData();
-    // console.log(cartProducts);
-    const {user} = useContext(AuthContext);
-    const [bids,setBids] = useState(bidJob);
-    console.log(bids)
-
-    if (!user) {
-      return (
-        <div>
-          <h1 className="text-2xl font-bold">My Bids</h1>
-          <p>Loading...</p>
-        </div>
-      );
-    }
+  const { user } = useContext(AuthContext);
+  const [bids, setBids] = useState(bidJob.map(bid => ({ ...bid, status: "pending" })));
 
 
-    
-    const filteredBidJob = bids.filter(bid => bid.email === user.email);
-    console.log(filteredBidJob);
+  const handleCompleteBid = (bidId) => {
+    // Find the bid with the given bidId and mark it as complete
+    const updatedBids = bids.map((bid) => {
+      if (bid._id === bidId) {
+        return { ...bid, status: "complete" };
+      }
+      return bid;
+    });
 
-    
+    setBids(updatedBids);
+  };
 
+  if (!user) {
+    return (
+      <div>
+        <h1 className="text-2xl font-bold">My Bids</h1>
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
-
+  const filteredBidJob = bids.filter((bid) => bid.email === user.email);
 
   return (
     <div>

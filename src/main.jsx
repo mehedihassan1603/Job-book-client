@@ -16,6 +16,7 @@ import TabData from './Components/Homepage/TabData/TabData.jsx';
 import JobDetails from './Components/JobDetails/JobDeatils.jsx';
 import MyBids from './Components/My Bids/MyBids.jsx';
 import Update from './Components/Update/Update.jsx';
+import BidRequests from './Components/BidRequests/BidRequests.jsx';
 
 
 const router = createBrowserRouter([
@@ -56,6 +57,11 @@ const router = createBrowserRouter([
         path: '/update/:_id',
         element: <Update></Update>,
         loader: ({params})=> fetch(`http://localhost:5000/job/${params._id}`)
+      },
+      {
+        path: "/bid-requests",
+        element: <BidRequests></BidRequests>,
+        loader: () => fetch('http://localhost:5000/bidjob'),
       },
       {
         path: "/login",
