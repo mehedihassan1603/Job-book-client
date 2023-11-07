@@ -10,9 +10,8 @@ const MyBids = () => {
   const [bids, setBids] = useState(bidJob);
 
   const handleCompleteBid = (bidId) => {
-    // Find the bid with the given bidId and mark it as complete
     const updatedStatus = "complete";
-  
+
     fetch(`http://localhost:5000/bidjob/${bidId}`, {
       method: "PUT",
       headers: {
@@ -28,10 +27,6 @@ const MyBids = () => {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
-  
-          // After updating the status, you can choose to refresh the list of bid requests or perform any other action.
-          // Example: You can call a function to refresh the list of bid requests.
-          // refreshBidRequests();
         }
       });
   };
@@ -47,9 +42,32 @@ const MyBids = () => {
 
   const filteredBidJob = bids.filter((bid) => bid.email === user.email);
 
+  const [sortBy, setSortBy] = useState("status"); // Default sorting by status
+
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
+  };
+
+  const sortedBidJob = filteredBidJob.slice().sort((a, b) => {
+    if (sortBy === "status") {
+      return a.status < b.status ? -1 : 1; // Sort by status in ascending order
+    } else if (sortBy === "deadline") {
+      return new Date(a.deadline) - new Date(b.deadline); // Sort by deadline in ascending order
+    }
+    // Add more sorting criteria if needed
+  });
+
   return (
     <div>
       <h1 className="text-2xl font-bold">My Bids</h1>
+      <div className="sort-options">
+        Sort by:
+        <select value={sortBy} onChange={handleSortChange}>
+          <option value="status">Status</option>
+          <option value="deadline">Deadline</option>
+          {/* Add more sorting criteria if needed */}
+        </select>
+      </div>
       <table className="w-full border-collapse border border-gray-400 mt-4">
         <thead>
           <tr>
@@ -61,7 +79,7 @@ const MyBids = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredBidJob.map((job) => (
+          {sortedBidJob.map((job) => (
             <tr key={job._id}>
               <td className="border border-gray-400">{job.jobTitle}</td>
               <td className="border border-gray-400">{job.buyerEmail}</td>
@@ -81,7 +99,7 @@ const MyBids = () => {
           ))}
         </tbody>
       </table>
-      <ToastContainer></ToastContainer>
+      <ToastContainer />
     </div>
   );
 };
