@@ -17,6 +17,8 @@ import JobDetails from './Components/JobDetails/JobDeatils.jsx';
 import MyBids from './Components/My Bids/MyBids.jsx';
 import Update from './Components/Update/Update.jsx';
 import BidRequests from './Components/BidRequests/BidRequests.jsx';
+import NotFoundPage from './Components/NotFound/NotFoundPage.jsx';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute.jsx';
 
 
 const router = createBrowserRouter([
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/job",
-        element: <AddJob></AddJob>,
+        element: <PrivateRoute><AddJob></AddJob></PrivateRoute>,
       },
       {
         path: "/jobdata",
@@ -41,26 +43,26 @@ const router = createBrowserRouter([
       {
         path: "/details/:_id",
         loader: () => fetch("http://localhost:5000/job"),
-        element: <JobDetails></JobDetails>
+        element: <PrivateRoute><JobDetails></JobDetails></PrivateRoute>
       },
       {
         path: "/my-posted-job",
-        element: <MyPostedJob></MyPostedJob>,
+        element: <PrivateRoute><MyPostedJob></MyPostedJob></PrivateRoute>,
         loader: () => fetch("http://localhost:5000/job"),
       },
       {
         path: "/my-bids",
         loader: () => fetch('http://localhost:5000/bidjob'),
-        element: <MyBids></MyBids>,
+        element: <PrivateRoute><MyBids></MyBids></PrivateRoute>,
       },
       {
         path: '/update/:_id',
-        element: <Update></Update>,
+        element: <PrivateRoute><Update></Update></PrivateRoute>,
         loader: ({params})=> fetch(`http://localhost:5000/job/${params._id}`)
       },
       {
         path: "/bid-requests",
-        element: <BidRequests></BidRequests>,
+        element: <PrivateRoute><BidRequests></BidRequests></PrivateRoute>,
         loader: () => fetch('http://localhost:5000/bidjob'),
       },
       {
@@ -70,6 +72,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage></NotFoundPage>,
       },
     ],
   },

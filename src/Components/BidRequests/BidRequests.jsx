@@ -3,10 +3,12 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "react-step-progress-bar/styles.css";
+import { ProgressBar, Step } from "react-step-progress-bar";
 
 const BidRequests = () => {
   const requestsjobs = useLoaderData();
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [bidRequests, setBidRequests] = useState(requestsjobs);
   const navigate = useNavigate();
   if (!user) {
@@ -16,17 +18,19 @@ const BidRequests = () => {
       </div>
     );
   }
-  const filterBidRequests = bidRequests.filter(bid => bid.buyerEmail === user.email);
+  const filterBidRequests = bidRequests.filter(
+    (bid) => bid.buyerEmail === user.email
+  );
   // const filterBidRequests = bidRequests.filter((request) => {
   //   return request.buyerEmail === user.email || request.status === "pending";
   // });
-  
-  console.log(filterBidRequests.length)
+
+  console.log(filterBidRequests.length);
 
   const handleAccept = (id) => {
     // Update the status for the specific bid with the given ID
     const updatedStatus = "in progress";
-  
+
     fetch(`http://localhost:5000/bidjob/${id}`, {
       method: "PUT",
       headers: {
@@ -46,12 +50,11 @@ const BidRequests = () => {
         }
       });
   };
-  
 
   const handleReject = (id) => {
     // Update the status for the specific bid with the given ID
     const updatedStatus = "rejected";
-  
+
     fetch(`http://localhost:5000/bidjob/${id}`, {
       method: "PUT",
       headers: {
@@ -67,14 +70,13 @@ const BidRequests = () => {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
-  
+
           // After updating the status, you can choose to refresh the list of bid requests or perform any other action.
           // Example: You can call a function to refresh the list of bid requests.
           // refreshBidRequests();
         }
       });
   };
-  
 
   return (
     <div>
@@ -99,31 +101,51 @@ const BidRequests = () => {
               <td className="border border-gray-400">{request.price}</td>
               <td className="border border-gray-400">{request.status}</td>
               <td className="border border-gray-400">
-                {request.status === "Pending" && (
-                  <>
-                    <button
-                      onClick={() => handleAccept(request._id)}
-                      className="bg-green-500 text-white px-2 py-1 rounded"
-                    >
-                      Accept
-                    </button>
-                    <button
-                      onClick={() => handleReject(request._id)}
-                      className="bg-red-500 text-white px-2 py-1 rounded"
-                    >
-                      Reject
-                    </button>
-                  </>
-                )}
-                {request.status === "in progress" && (
-                  <div className="progress-bar">
-                    <div
-                      className="progress-bar-fill"
-                      style={{ width: "50%" }} // You can adjust the width based on the job's progress
-                    />
-                  </div>
-                )}
-              </td>
+  {request.status === "Pending" && (
+    <>
+      <button
+        onClick={() => handleAccept(request._id)}
+        className="bg-green-500 text-white px-2 py-1 rounded"
+      >
+        Accept
+      </button>
+      <button
+        onClick={() => handleReject(request._id)}
+        className="bg-red-500 text-white px-2 py-1 rounded"
+      >
+        Reject
+      </button>
+    </>
+  )}
+  {request.status === "in progress" && (
+    <div className="progress-bar-container">
+      <ProgressBar
+        percent={75}
+        text="75%"
+        filledBackground="linear-gradient(to right, #6AD0D0, #22B7B7)"
+      ></ProgressBar>
+    </div>
+  )}
+  {request.status === "complete" && (
+    <div className="progress-bar-container">
+      <ProgressBar
+        percent={100}
+        text="100%"
+        filledBackground="linear-gradient(to right, #00FF00, #009900)"
+      ></ProgressBar>
+    </div>
+  )}
+  {request.status === "rejected" && (
+    <div className="progress-bar-container">
+      <ProgressBar
+        percent={0}
+        text="0%"
+        filledBackground="linear-gradient(to right, #FF0000, #990000)"
+      ></ProgressBar>
+    </div>
+  )}
+</td>
+
             </tr>
           ))}
         </tbody>
