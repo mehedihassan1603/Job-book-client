@@ -16,6 +16,7 @@ const JobDetails = () => {
     email: user ? user.email : "",
     buyerEmail: job.employerEmail,
     jobTitle: job.jobTitle,
+    status: "Pending"
   });
 
   function formatDate(dateString) {
@@ -35,13 +36,14 @@ const JobDetails = () => {
 
   const addToBids = async () => {
     const itemToAdd = {
-      // Add here all the form data needed for the bid
+      
       price: bid.price,
       deadline: bid.deadline,
       email: bid.email,
       buyerEmail: bid.buyerEmail,
-      jobId: job._id, // Add the job ID to link the bid to the job
+      jobId: job._id, 
       jobTitle: job.jobTitle,
+      status: bid.status,
     };
 
     fetch('http://localhost:5000/bidjob', {

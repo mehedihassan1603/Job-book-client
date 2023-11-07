@@ -5,8 +5,7 @@ import { useLoaderData } from "react-router-dom";
 const MyBids = () => {
   const bidJob = useLoaderData();
   const { user } = useContext(AuthContext);
-  const [bids, setBids] = useState(bidJob.map(bid => ({ ...bid, status: "pending" })));
-
+  const [bids, setBids] = useState(bidJob);
 
   const handleCompleteBid = (bidId) => {
     // Find the bid with the given bidId and mark it as complete
