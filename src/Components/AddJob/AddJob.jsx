@@ -51,7 +51,7 @@ const AddJob = () => {
     // Set the "Published on" date in the job data
     const updatedJobData = { ...job, postedOn: formattedDate };
 
-    fetch("http://localhost:5000/job", {
+    fetch("https://job-book-server.vercel.app/job", {
       method: "POST",
       headers: {
         "content-type": "application/json",

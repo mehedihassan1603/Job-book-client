@@ -47,7 +47,7 @@ const JobDetails = () => {
       status: bid.status,
     };
 
-    fetch('http://localhost:5000/bidjob', {
+    fetch('https://job-book-server.vercel.app/bidjob', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

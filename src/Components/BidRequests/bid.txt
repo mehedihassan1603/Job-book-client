@@ -46,7 +46,7 @@ const BidRequests = () => {
     // Update the status for the specific bid with the given ID
     const updatedStatus = "in progress";
 
-    fetch(`http://localhost:5000/bidjob/${id}`, {
+    fetch(`https://job-book-server.vercel.app/bidjob/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +70,7 @@ const BidRequests = () => {
     // Update the status for the specific bid with the given ID
     const updatedStatus = "rejected";
 
-    fetch(`http://localhost:5000/bidjob/${id}`, {
+    fetch(`https://job-book-server.vercel.app/bidjob/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

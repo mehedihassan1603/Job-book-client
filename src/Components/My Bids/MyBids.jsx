@@ -31,7 +31,7 @@ const MyBids = () => {
   const handleCompleteBid = (bidId) => {
     const updatedStatus = "complete";
 
-    fetch(`http://localhost:5000/bidjob/${bidId}`, {
+    fetch(`https://job-book-server.vercel.app/bidjob/${bidId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

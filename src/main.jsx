@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
-        loader: ()=> fetch('http://localhost:5000/job')
+        loader: ()=> fetch('https://job-book-server.vercel.app/job')
       },
       {
         path: "/job",
@@ -38,32 +38,32 @@ const router = createBrowserRouter([
       {
         path: "/jobdata",
         element: <TabData></TabData>,
-        loader: ()=> fetch('http://localhost:5000/job')
+        loader: ()=> fetch('https://job-book-server.vercel.app/job')
       },
       {
         path: "/details/:_id",
-        loader: () => fetch("http://localhost:5000/job"),
+        loader: () => fetch("https://job-book-server.vercel.app/job"),
         element: <PrivateRoute><JobDetails></JobDetails></PrivateRoute>
       },
       {
         path: "/my-posted-job",
         element: <PrivateRoute><MyPostedJob></MyPostedJob></PrivateRoute>,
-        loader: () => fetch("http://localhost:5000/job"),
+        loader: () => fetch("https://job-book-server.vercel.app/job"),
       },
       {
         path: "/my-bids",
-        // loader: () => fetch('http://localhost:5000/bidjob'),
+        // loader: () => fetch('https://job-book-server.vercel.app/bidjob'),
         element: <PrivateRoute><MyBids></MyBids></PrivateRoute>,
       },
       {
         path: '/update/:_id',
         element: <PrivateRoute><Update></Update></PrivateRoute>,
-        loader: ({params})=> fetch(`http://localhost:5000/job/${params._id}`)
+        loader: ({params})=> fetch(`https://job-book-server.vercel.app/job/${params._id}`)
       },
       {
         path: "/bid-requests",
         element: <PrivateRoute><BidRequests></BidRequests></PrivateRoute>,
-        // loader: () => fetch('http://localhost:5000/bidjob'),
+        // loader: () => fetch('https://job-book-server.vercel.app/bidjob'),
       },
       {
         path: "/login",
@@ -73,11 +73,13 @@ const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>,
       },
-      {
-        path: "*",
-        element: <NotFoundPage></NotFoundPage>,
-      },
+      
     ],
+    
+  },
+  {
+    path: "*",
+    element: <NotFoundPage></NotFoundPage>,
   },
 ]);
 

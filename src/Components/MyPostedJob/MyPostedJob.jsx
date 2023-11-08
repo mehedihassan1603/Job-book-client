@@ -35,7 +35,7 @@ const MyPostedJob = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`http://localhost:5000/job/${_id}`, {
+          const response = await fetch(`https://job-book-server.vercel.app/job/${_id}`, {
             method: "DELETE",
           });
 

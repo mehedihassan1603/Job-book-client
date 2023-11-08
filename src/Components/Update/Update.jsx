@@ -38,7 +38,7 @@ const Update = () => {
     };
     console.log(updateProduct);
 
-    fetch(`http://localhost:5000/job/${_id}`, {
+    fetch(`https://job-book-server.vercel.app/job/${_id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",

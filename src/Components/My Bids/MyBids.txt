@@ -12,7 +12,7 @@ const MyBids = () => {
   const [bids, setBids] = useState(bidJob);
 
 
-  const url = `http://localhost:5000/bidjob?email=${user?.email}`;
+  const url = `https://job-book-server.vercel.app/bidjob?email=${user?.email}`;
     useEffect(() => {
 
         axios.get(url, {withCredentials: true})
@@ -29,7 +29,7 @@ const MyBids = () => {
   const handleCompleteBid = (bidId) => {
     const updatedStatus = "complete";
 
-    fetch(`http://localhost:5000/bidjob/${bidId}`, {
+    fetch(`https://job-book-server.vercel.app/bidjob/${bidId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
