@@ -19,9 +19,7 @@
     margin: 10px 0;
   }
   
-  .chat-input {
-    display: flex;
-  }
+  
   
   input {
     flex: 1;
@@ -37,7 +35,7 @@
   @media (max-width: 768px) {
     /* Adjust styles for mobile screens */
     .chat-container {
-      width: 100%;
+      width: 60%;
     }
     /* Add more mobile-specific styles as needed */
   }

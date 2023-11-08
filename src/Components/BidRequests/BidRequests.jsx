@@ -105,7 +105,7 @@ const BidRequests = () => {
       {loading ? (
         <InfinitySpin width="500" color="#4fa94d" />
       ) : (
-        <table className="w-9/12 border-collapse border mx-auto border-gray-400 mt-4">
+        <table className="w-6/12 md:w-9/12 lg:w-9/12 border-collapse border mx-auto border-gray-400 mt-4">
           <thead>
             <tr>
               <th className="border border-gray-400">Job Title</th>

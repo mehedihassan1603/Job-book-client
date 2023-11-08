@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,6 +9,7 @@ import { useEffect } from "react";
 const JobDetails = () => {
   const { user } = useContext(AuthContext);
   const details = useLoaderData();
+  const navigate = useNavigate();
   const { _id } = useParams();
   const job = details.find((item) => item._id === _id);
 
@@ -58,10 +59,13 @@ const JobDetails = () => {
       .then(data => {
         console.log(data);
         if (data.insertedId) {
-          toast.success("Successfully added to My Cart!", {
+          toast.success("Successfully Bid this Job!", {
             position: toast.POSITION.TOP_CENTER,
             autoClose: 2000,
           });
+          setTimeout(() => {
+            navigate('/my-bids');
+          }, 2000);
         }
       });
   }

@@ -8,15 +8,14 @@ const Banner = () => {
         id="slide1"
         className="carousel-item relative w-full h-52 lg:h-[500px]"
         style={{
-          backgroundImage: `url("https://i.ibb.co/GFJrtf0/Car-For-Sale-Promo-Cover-Template-Made-with-Poster-My-Wall333.jpg")`,
+          backgroundImage: `url("https://www3.recruiter.com/recruiting/wp-content/uploads/2016/10/bulb.png")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
         <div className="overlay"></div>
         <div className="content">
-          <h2>Title 1</h2>
-          <p>Short paragraph</p>
+          <h2>Grow up with your own capability</h2>
         </div>
         <div className=" arrow-btn">
           
@@ -35,15 +34,15 @@ const Banner = () => {
         id="slide2"
         className="carousel-item relative w-full h-52 lg:h-[500px] "
         style={{
-          backgroundImage: `url("https://i.ibb.co/DQPg2LS/Luxury-Car-Rental-Made-with-Poster-My-Wall333.jpg")`,
+          backgroundImage: `url("https://images.inc.com/uploaded_files/image/1920x1080/getty_825493738_414275.jpg")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
         <div className="overlay"></div>
-        <div className="content">
-          <h2>Title 2</h2>
-          <p>Another short paragraph</p>
+        <div className="content text-center">
+          <h2>Find Your Dream Job</h2>
+          <p>You can find your dream job here.</p>
           
         </div>
         <div className=" arrow-btn">
@@ -63,15 +62,14 @@ const Banner = () => {
         id="slide3"
         className="carousel-item relative w-full h-52 lg:h-[500px]"
         style={{
-          backgroundImage: `url("https://i.ibb.co/LYzzMLx/Sell-your-cars.jpg")`,
+          backgroundImage: `url("https://www.cheggindia.com/wp-content/uploads/2021/02/Online-Part-Time-Jobs-in-India-Work-from-Home.png")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
         <div className="overlay"></div>
         <div className="content">
-          <h2>Title 3</h2>
-          <p>One more short paragraph</p>
+          <h2>Let's Check it Out...</h2>
           
         </div>
         <div className=" arrow-btn">

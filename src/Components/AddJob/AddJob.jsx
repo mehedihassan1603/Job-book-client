@@ -66,7 +66,7 @@ const AddJob = () => {
             autoClose: 2000,
           });
           setTimeout(() => {
-            navigate(`/`);
+            navigate(`/my-posted-job`);
           }, 2000);
         }
       });

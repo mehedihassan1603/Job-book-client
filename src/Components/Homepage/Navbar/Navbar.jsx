@@ -47,20 +47,7 @@ const Navbar = () => {
               <li>
                 <NavLink to="/my-bids">My Bids</NavLink> 
               </li>
-              <li>
-                <NavLink to="/parent">Parent</NavLink> 
-                <ul className="p-2">
-                  <li>
-                    <NavLink to="/submenu-1">Submenu 1</NavLink> 
-                  </li>
-                  <li>
-                    <NavLink to="/submenu-2">Submenu 2</NavLink> 
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <NavLink to="/bid-requests">Bid Requests</NavLink> 
-              </li>
+              
               <li>
                 <NavLink to="/bid-requests">Bid Requests</NavLink> 
               </li>
@@ -68,7 +55,7 @@ const Navbar = () => {
           </div>
           <a href="/">
             <img
-              src="../../../../public/logo-removebg-preview.png"
+              src="https://i.ibb.co/XS0stSd/logo-removebg-preview.png"
               width={"40px"}
               alt=""
             />
@@ -91,19 +78,7 @@ const Navbar = () => {
             <li>
               <NavLink to="/my-bids">My Bids</NavLink> 
             </li>
-            <li tabIndex={0}>
-              <details>
-                <summary>Parent</summary>
-                <ul className="p-2">
-                  <li>
-                    <NavLink to="/submenu-1">Submenu 1</NavLink> 
-                  </li>
-                  <li>
-                    <NavLink to="/submenu-2">Submenu 2</NavLink> 
-                  </li>
-                </ul>
-              </details>
-            </li>
+            
             <li>
               <NavLink to="/bid-requests">Bid Requests</NavLink> 
             </li>

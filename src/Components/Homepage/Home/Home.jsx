@@ -36,7 +36,7 @@ const Home = () => {
       <Welcome></Welcome>
       <div className="text-center bg-gray-300 w-11/12 mx-auto">
         <Tabs>
-          <TabList className="flex justify-center bg-slate-600 space-x-4 p-4">
+          <TabList className="flex flex-col md:flex-row lg:flex-row justify-center bg-slate-600 space-x-4 p-4">
             {categories.map((category) => (
               <Tab
                 key={category}
@@ -68,7 +68,7 @@ const Home = () => {
 
           {categories.map((category) => (
             <TabPanel key={category}>
-              <div className="grid grid-cols-2 gap-4 mb-40 p-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-40 p-4">
                 {groupedData[category].map((job, index) => (
                   <div
                     className="bg-slate-600 rounded-lg shadow-md text-white"
@@ -113,6 +113,17 @@ const Home = () => {
         </Tabs>
       </div>
 
+
+      <div className="flex flex-col md:flex-row lg:flex-row justify-around my-10 gap-10 items-center w-9/12 mx-auto text-black bg-blue-200 p-6">
+        <div className="" data-aos="slide-right">
+          <img src="https://doortofuture.com/wp-content/uploads/2021/11/online-jobs-from-home-without-investment1.jpg" alt="" />
+        </div>
+        <div className="w-3/4 mx-auto" data-aos="slide-up">
+          <h1 className="text-3xl font-semibold">Online jobs for students can be lucrative, pay well, and set you on a successful career path… if you choose them well & you’re willing to do the work.</h1>
+        </div>
+      </div>
+
+
       <GetAhead></GetAhead>
 
       <div className="flex flex-col md:flex-col lg:flex-row-reverse justify-center items-center px-20 gap-10 py-10 bg-slate-800">
@@ -123,7 +134,7 @@ const Home = () => {
               className="max-w-sm rounded-lg shadow-2xl"
               width={"200px"}
             />
-            <div>
+            <div className="">
               <Chat></Chat>
             </div>
           </div>
