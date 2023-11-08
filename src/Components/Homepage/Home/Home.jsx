@@ -10,6 +10,9 @@ import Chat from "../Chat/Chat";
 import "./Home.css";
 import Welcome from "../Wlcome/Welcome";
 import GetAhead from "./GetAhead";
+import Aos from "aos";
+import "aos/dist/aos.css";
+import ServicesComponent from "./ServicesComponent";
 
 const Home = () => {
   const jobData = useLoaderData();
@@ -18,6 +21,11 @@ const Home = () => {
     "Digital Marketing",
     "Graphics Design",
   ];
+  useEffect(() => {
+    Aos.init({
+      duration: 1000,
+    });
+  }, []);
   const [selectedCategory, setSelectedCategory] = useState("Web Development");
 
   const groupedData = {};
@@ -124,16 +132,18 @@ const Home = () => {
       </div>
 
 
+      <ServicesComponent></ServicesComponent>
+
+
       <GetAhead></GetAhead>
 
       <div className="flex flex-col md:flex-col lg:flex-row-reverse justify-center items-center px-20 gap-10 py-10 bg-slate-800">
         <div className="hero bg-sky-200 rounded-lg shadow-lg card-hover">
           <div className="hero-content flex-col lg:flex-row-reverse">
-            <img
-              src="https://i.ibb.co/h2mWnCC/delivery-man.png"
-              className="max-w-sm rounded-lg shadow-2xl"
-              width={"200px"}
-            />
+            <div className="flex flex-col justify-center items-center">
+              <div className="rounded-full w-60"><img src="https://i.ibb.co/MVZQ28W/chatting-with-friend-through-messenger-vector-26590462.jpg" width={'100%'} className="rounded-full" alt="" /></div>
+              <h1 className="text-3xl font-bold text-center">You can "Chat" with us...</h1>
+            </div>
             <div className="">
               <Chat></Chat>
             </div>

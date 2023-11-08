@@ -1,22 +1,39 @@
-import React from "react";
-import "./Welcome.css"; // Import your custom styles
+
+import 'animate.css';
+
 
 const Welcome = () => {
   return (
-    <div className="welcome-container bg-gray-300 w-11/12 mx-auto">
-      <div className="welcome-content">
-        <h1 className="welcome-title">Welcome to Job-Book</h1>
-        <p className="welcome-description">
+    <div className="bg-gradient-to-b from-blue-700 to-blue-900 w-11/12 mx-auto text-white py-12">
+      <div className="container mx-auto px-4 text-center">
+        <h1 className="text-4xl font-extrabold mb-4 animate__animated animate__fadeIn animate__delay-1s">
+          Welcome to Job-Book
+        </h1>
+        <p className="text-2xl mb-6 animate__animated animate__fadeIn animate__delay-2s">
           Where Connections Begin!
         </p>
-        <p className="welcome-text">
-          Discover a world of opportunities as you step into our online community. <br /> Whether you're here to find your dream job, hire talented professionals, <br /> or connect with like-minded individuals, you're in the right place.
-        </p>
-        <p className="welcome-text">
-          Our platform is designed to empower you, facilitate meaningful connections, <br /> and help you achieve your goals. Join us in making opportunities happen, <br /> one chat, one bid, and one job at a time.
-        </p>
-        <p className="welcome-text">
-          Let's embark on this exciting journey together! Start exploring, start connecting, and start achieving today.
+        <div className="text-lg mb-4 animate__animated animate__fadeIn animate__delay-4s">
+          <p className="mb-2">
+            Discover a world of opportunities as you step into our online
+            community.
+          </p>
+          <p className="mb-2">
+            Whether you're here to find your dream job, hire talented
+            professionals, or connect with like-minded individuals, you're in
+            the right place.
+          </p>
+          <p className="mb-2">
+            Our platform is designed to empower you, facilitate meaningful
+            connections, and help you achieve your goals.
+          </p>
+          <p>
+            Join us in making opportunities happen, one chat, one bid, and one job
+            at a time.
+          </p>
+        </div>
+        <p className="text-lg animate__animated animate__fadeIn animate__delay-5s">
+          Let's embark on this exciting journey together! Start exploring, start
+          connecting, and start achieving today.
         </p>
       </div>
     </div>

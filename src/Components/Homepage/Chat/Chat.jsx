@@ -22,7 +22,7 @@ function Chat() {
           </div>
         ))}
       </div>
-      <div className="flex flex-col md:flex-row lg:flex-row w-6/12 lg:w-11/12">
+      <div className="flex flex-col md:flex-row lg:flex-row w-full lg:w-11/12">
         <input
           
           type="text"
