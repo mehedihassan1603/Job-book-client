@@ -1,0 +1,133 @@
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import { useLoaderData } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet";
+import axios from "axios";
+
+const MyBids = () => {
+  const bidJob = useLoaderData();
+  const { user } = useContext(AuthContext);
+  const [bids, setBids] = useState(bidJob);
+
+
+  const url = `http://localhost:5000/bidjob?email=${user?.email}`;
+    useEffect(() => {
+
+        axios.get(url, {withCredentials: true})
+        .then(res => {
+            setBids(res.data);
+        })
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(data => setBookings(data))
+    }, [url]);
+
+
+
+  const handleCompleteBid = (bidId) => {
+    const updatedStatus = "complete";
+
+    fetch(`http://localhost:5000/bidjob/${bidId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: updatedStatus }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.modifiedCount > 0) {
+          toast.success("Bid status updated to 'completed' successfully!", {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+          });
+        }
+      });
+  };
+
+  if (!user) {
+    return (
+      <div>
+        <h1 className="text-2xl font-bold">My Bids</h1>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  const filteredBidJob = bids.filter((bid) => bid.email === user.email);
+
+  const [sortBy, setSortBy] = useState("status"); // Default sorting by status
+
+  const handleSortChange = (event) => {
+    setSortBy(event.target.value);
+  };
+
+  const sortedBidJob = filteredBidJob.slice().sort((a, b) => {
+    if (sortBy === "status") {
+      return a.status < b.status ? -1 : 1; // Sort by status in ascending order
+    } else if (sortBy === "deadline") {
+      return new Date(a.deadline) - new Date(b.deadline); // Sort by deadline in ascending order
+    }
+    // Add more sorting criteria if needed
+  });
+
+
+  useEffect(() => {
+    // Set the dynamic title and favicon here
+    document.title = "Job-Book | My Bids";
+    const favicon = document.querySelector("link[rel*='icon']");
+    favicon.href = "/public/icons8-favicon-48.png"; // Replace with the path to your favicon
+  }, []);
+
+
+  return (
+    <div>
+      <h1 className="text-2xl font-bold">My Bids</h1>
+      <div className="sort-options">
+        Sort by:
+        <select value={sortBy} onChange={handleSortChange}>
+          <option value="status">Status</option>
+          <option value="deadline">Deadline</option>
+          {/* Add more sorting criteria if needed */}
+        </select>
+      </div>
+      <table className="w-full border-collapse border border-gray-400 mt-4">
+        <thead>
+          <tr>
+            <th className="border border-gray-400">Job Title</th>
+            <th className="border border-gray-400">Email</th>
+            <th className="border border-gray-400">Deadline</th>
+            <th className="border border-gray-400">Status</th>
+            <th className="border border-gray-400">Complete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sortedBidJob.map((job) => (
+            <tr key={job._id}>
+              <td className="border border-gray-400">{job.jobTitle}</td>
+              <td className="border border-gray-400">{job.buyerEmail}</td>
+              <td className="border border-gray-400">{job.deadline}</td>
+              <td className="border border-gray-400">{job.status}</td>
+              <td className="border border-gray-400">
+                {job.status === "in progress" && (
+                  <button
+                    onClick={() => handleCompleteBid(job._id)}
+                    className="bg-green-500 text-white px-2 py-1 rounded"
+                  >
+                    Complete
+                  </button>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <ToastContainer />
+    </div>
+  );
+};
+
+export default MyBids;

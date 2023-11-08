@@ -101,11 +101,11 @@ const BidRequests = () => {
 
   return (
     <div>
-      <h1 className="text-2xl mt-5 font-bold text-center w-2/4 mx-auto text-white py-3 bg-slate-600">Bid Requests</h1>
+      <h1 className="text-2xl font-bold">Bid Requests</h1>
       {loading ? (
         <InfinitySpin width="500" color="#4fa94d" />
       ) : (
-        <table className="w-9/12 border-collapse border mx-auto border-gray-400 mt-4">
+        <table className="w-full border-collapse border border-gray-400 mt-4">
           <thead>
             <tr>
               <th className="border border-gray-400">Job Title</th>

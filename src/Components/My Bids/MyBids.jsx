@@ -4,11 +4,29 @@ import { useLoaderData } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Helmet } from "react-helmet";
+import useAxiosSecure from "../AuthProvider/useAxiosSecure";
+import { InfinitySpin } from "react-loader-spinner";
 
 const MyBids = () => {
   const bidJob = useLoaderData();
   const { user } = useContext(AuthContext);
-  const [bids, setBids] = useState(bidJob);
+  const [bids, setBids] = useState([]);
+  const axiosSecure = useAxiosSecure();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const url = `/bidjob?email=${user?.email}`;
+
+  useEffect(() => {
+    axiosSecure.get(url)
+      .then((res) => {
+        setBids(res.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsLoading(false);
+      });
+  }, [url, axiosSecure]);
 
   const handleCompleteBid = (bidId) => {
     const updatedStatus = "complete";
@@ -34,16 +52,20 @@ const MyBids = () => {
 
   if (!user) {
     return (
-      <div>
+      <div className="text-center">
         <h1 className="text-2xl font-bold">My Bids</h1>
-        <p>Loading...</p>
+        {isLoading ? (
+          <div className="mt-8">
+            <InfinitySpin width="48" color="#4fa94d" />
+          </div>
+        ) : null}
       </div>
     );
   }
 
-  const filteredBidJob = bids.filter((bid) => bid.email === user.email);
+  const filteredBidJob = bids?.filter((bid) => bid.email === user?.email);
 
-  const [sortBy, setSortBy] = useState("status"); // Default sorting by status
+  const [sortBy, setSortBy] = useState("status");
 
   const handleSortChange = (event) => {
     setSortBy(event.target.value);
@@ -51,64 +73,79 @@ const MyBids = () => {
 
   const sortedBidJob = filteredBidJob.slice().sort((a, b) => {
     if (sortBy === "status") {
-      return a.status < b.status ? -1 : 1; // Sort by status in ascending order
+      return a.status < b.status ? -1 : 1;
     } else if (sortBy === "deadline") {
-      return new Date(a.deadline) - new Date(b.deadline); // Sort by deadline in ascending order
+      return new Date(a.deadline) - new Date(b.deadline);
     }
-    // Add more sorting criteria if needed
   });
 
-
   useEffect(() => {
-    // Set the dynamic title and favicon here
     document.title = "Job-Book | My Bids";
     const favicon = document.querySelector("link[rel*='icon']");
-    favicon.href = "/public/icons8-favicon-48.png"; // Replace with the path to your favicon
+    favicon.href = "/public/icons8-favicon-48.png";
   }, []);
 
-
   return (
-    <div>
-      <h1 className="text-2xl font-bold">My Bids</h1>
-      <div className="sort-options">
-        Sort by:
-        <select value={sortBy} onChange={handleSortChange}>
-          <option value="status">Status</option>
-          <option value="deadline">Deadline</option>
-          {/* Add more sorting criteria if needed */}
-        </select>
-      </div>
-      <table className="w-full border-collapse border border-gray-400 mt-4">
-        <thead>
-          <tr>
-            <th className="border border-gray-400">Job Title</th>
-            <th className="border border-gray-400">Email</th>
-            <th className="border border-gray-400">Deadline</th>
-            <th className="border border-gray-400">Status</th>
-            <th className="border border-gray-400">Complete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedBidJob.map((job) => (
-            <tr key={job._id}>
-              <td className="border border-gray-400">{job.jobTitle}</td>
-              <td className="border border-gray-400">{job.buyerEmail}</td>
-              <td className="border border-gray-400">{job.deadline}</td>
-              <td className="border border-gray-400">{job.status}</td>
-              <td className="border border-gray-400">
-                {job.status === "in progress" && (
-                  <button
-                    onClick={() => handleCompleteBid(job._id)}
-                    className="bg-green-500 text-white px-2 py-1 rounded"
-                  >
-                    Complete
-                  </button>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="text-center">
+      <h1 className="text-2xl font-bold mt-4">My Bids</h1>
+      {isLoading ? (
+        <div className="mt-8">
+          <InfinitySpin width="48" color="#4fa94d" />
+        </div>
+      ) : (
+        <div className="mt-4">
+          <div className="w-1/3 m-auto">
+            <div className="flex justify-end mt-2 mb-4">
+              <div className="w-1/3">
+                <label className="block text-right text-sm font-medium text-gray-600">
+                  Sort by:
+                </label>
+              </div>
+              <div className="w-2/3">
+                <select
+                  value={sortBy}
+                  onChange={handleSortChange}
+                  className="block w-full px-4 py-2 mt-1 bg-gray-200 border border-gray-400 focus:ring focus:ring-blue-500 focus:border-blue-500 rounded-md sm:text-sm"
+                >
+                  <option value="status">Status</option>
+                  <option value="deadline">Deadline</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <table className="w-full mt-4 border border-gray-400">
+            <thead>
+              <tr>
+                <th className="p-4">Job Title</th>
+                <th className="p-4">Email</th>
+                <th className="p-4">Deadline</th>
+                <th className="p-4">Status</th>
+                <th className="p-4">Complete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedBidJob.map((job) => (
+                <tr key={job._id}>
+                  <td className="p-4">{job.jobTitle}</td>
+                  <td className="p-4">{job.buyerEmail}</td>
+                  <td className="p-4">{job.deadline}</td>
+                  <td className="p-4">{job.status}</td>
+                  <td className="p-4">
+                    {job.status === "in progress" && (
+                      <button
+                        onClick={() => handleCompleteBid(job._id)}
+                        className="px-2 py-1 text-white bg-green-500 rounded"
+                      >
+                        Complete
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
       <ToastContainer />
     </div>
   );

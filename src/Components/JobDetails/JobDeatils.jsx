@@ -30,7 +30,7 @@ const JobDetails = () => {
     e.preventDefault();
     // Handle bid submission here
     console.log(bid);
-    
+
     // You can make an API request to post the bid data here
     // Example code for posting the bid data
     // addToBids();
@@ -38,7 +38,6 @@ const JobDetails = () => {
 
   const addToBids = async () => {
     const itemToAdd = {
-      
       price: bid.price,
       deadline: bid.deadline,
       email: bid.email,
@@ -66,64 +65,82 @@ const JobDetails = () => {
         }
       });
   }
+
   useEffect(() => {
-    document.title = "Job-Book | Details";
+    document.title = "Job-Book|Details";
     const favicon = document.querySelector("link[rel*='icon']");
     favicon.href = "/public/details.png";
   }, []);
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold">{job.jobTitle}</h1>
-      <p>Deadline: {formatDate(job.deadline)}</p>
-      <p>Price Range: ${job.minPrice} - ${job.maxPrice}</p>
-      <p>Description: {job.description}</p>
+    <Helmet>
+      <title>Job-Book | Details</title>
+    </Helmet>
+    <h1 className="text-3xl font-bold text-center text-red-500 mb-4">Job Title: {job.jobTitle}</h1>
+    <p className="text-gray-500 text-center">Deadline: {formatDate(job.deadline)}</p>
+    <p className="text-gray-500 text-center mb-5">Price Range: ${job.minPrice} - ${job.maxPrice}</p>
+    <p className="text-gray-500">Description: {job.description}</p>
 
-      <h2>Place Your Bid</h2>
-      <form onSubmit={handleBidSubmit}>
-        <div>
-          <label htmlFor="price">Price:</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={bid.price}
-            onChange={(e) => setBid({ ...bid, price: e.target.value })}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="deadline">Deadline:</label>
-          <input
-            type="date"
-            id="deadline"
-            name="deadline"
-            value={bid.deadline}
-            
-            onChange={(e) => setBid({ ...bid, deadline: e.target.value })}
-            required
-          />
-        </div>
-        <div>
-          <label>Email (Your Email):</label>
-          <input type="text" id="email" name="email" value={bid.email} readOnly />
-        </div>
-        <div>
-          <label>Buyer Email:</label>
-          <input
-            type="text"
-            id="buyerEmail"
-            name="buyerEmail"
-            value={bid.buyerEmail}
-            readOnly
-          />
-        </div>
-        <button type="submit" onClick={addToBids} disabled={user && user.email === job.employerEmail}>
-          Bid on the Project
-        </button>
-      </form>
-      <ToastContainer />
-    </div>
+    <h2 className="text-2xl font-semibold text-center bg-slate-600 text-white w-2/6 mx-auto py-2 mt-6">Place Your Bid</h2>
+    <form onSubmit={handleBidSubmit} className="mt-4 w-2/6 bg-slate-200 mx-auto">
+      <div className="mb-4">
+        <label htmlFor="price" className="text-gray-700">Price:</label>
+        <input
+          type="number"
+          id="price"
+          name="price"
+          value={bid.price}
+          onChange={(e) => setBid({ ...bid, price: e.target.value })}
+          required
+          className="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 placeholder-gray-400"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="deadline" className="text-gray-700">Deadline:</label>
+        <input
+          type="date"
+          id="deadline"
+          name="deadline"
+          value={bid.deadline}
+          onChange={(e) => setBid({ ...bid, deadline: e.target.value })}
+          required
+          className="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 placeholder-gray-400"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="email" className="text-gray-700">Email (Your Email):</label>
+        <input
+          type="text"
+          id="email"
+          name="email"
+          value={bid.email}
+          readOnly
+          className="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 placeholder-gray-400"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="buyerEmail" className="text-gray-700">Buyer Email:</label>
+        <input
+          type="text"
+          id="buyerEmail"
+          name="buyerEmail"
+          value={bid.buyerEmail}
+          readOnly
+          className="block w-full px-4 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300 placeholder-gray-400"
+        />
+      </div>
+      <button
+        type="submit"
+        onClick={addToBids}
+        disabled={user && user.email === job.employerEmail}
+        className="block w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+      >
+        Bid on the Project
+      </button>
+    </form>
+    <ToastContainer />
+  </div>
   );
 };
 

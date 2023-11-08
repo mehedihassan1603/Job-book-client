@@ -52,7 +52,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-bids",
-        loader: () => fetch('http://localhost:5000/bidjob'),
+        // loader: () => fetch('http://localhost:5000/bidjob'),
         element: <PrivateRoute><MyBids></MyBids></PrivateRoute>,
       },
       {
@@ -63,7 +63,7 @@ const router = createBrowserRouter([
       {
         path: "/bid-requests",
         element: <PrivateRoute><BidRequests></BidRequests></PrivateRoute>,
-        loader: () => fetch('http://localhost:5000/bidjob'),
+        // loader: () => fetch('http://localhost:5000/bidjob'),
       },
       {
         path: "/login",

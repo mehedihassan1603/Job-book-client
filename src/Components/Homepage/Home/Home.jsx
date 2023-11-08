@@ -5,10 +5,19 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { Helmet } from "react-helmet";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
+import Chat from "../Chat/Chat";
+import "./Home.css";
+import Welcome from "../Wlcome/Welcome";
+import GetAhead from "./GetAhead";
 
 const Home = () => {
   const jobData = useLoaderData();
-  const categories = ["Web Development", "Digital Marketing", "Graphics Design"];
+  const categories = [
+    "Web Development",
+    "Digital Marketing",
+    "Graphics Design",
+  ];
   const [selectedCategory, setSelectedCategory] = useState("Web Development");
 
   const groupedData = {};
@@ -24,51 +33,77 @@ const Home = () => {
   return (
     <div>
       <Banner />
-      <div className="text-center w-10/12 mx-auto">
+      <Welcome></Welcome>
+      <div className="text-center bg-gray-300 w-11/12 mx-auto">
         <Tabs>
-          <TabList className="flex justify-center space-x-4 p-4">
+          <TabList className="flex justify-center bg-slate-600 space-x-4 p-4">
             {categories.map((category) => (
               <Tab
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 selected={category === selectedCategory}
-                className="cursor-pointer px-4 py-2 text-blue-500 rounded hover:bg-blue-100"
+                className="cursor-pointer text-lg border-2 bg-slate-400 border-white text-white font-bold rounded hover:bg-blue-100"
               >
-                {category}
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{
+                    scale: 0.9,
+                    borderColor: "white",
+                  }}
+                  style={{
+                    backgroundColor:
+                      category === selectedCategory
+                        ? "rgb(219 234 254)"
+                        : "initial",
+                    color: category === selectedCategory ? "Black" : "initial",
+                    borderRadius:
+                      category === selectedCategory ? "10px" : "initial",
+                  }}
+                >
+                  {category}
+                </motion.button>
               </Tab>
             ))}
           </TabList>
 
           {categories.map((category) => (
             <TabPanel key={category}>
-              <div className="grid grid-cols-2 gap-4 p-4">
+              <div className="grid grid-cols-2 gap-4 mb-40 p-4">
                 {groupedData[category].map((job, index) => (
                   <div
-                    className="bg-white rounded-lg shadow-md"
+                    className="bg-slate-600 rounded-lg shadow-md text-white"
                     key={index}
                   >
                     <div className="p-4">
-                      <h3 className="text-xl font-semibold mb-2">{job.jobTitle}</h3>
-                      <p className="text-gray-600 text-sm mb-2">
-                        Published on: {job.postedOn} {/* Added Published on date */}
+                      <h3 className="text-xl font-semibold mb-2">
+                        {job.jobTitle}
+                      </h3>
+                      <p className="text-white text-sm mb-2">
+                        Published on: {job.postedOn}{" "}
+                        {/* Added Published on date */}
                       </p>
-                      <p className="text-gray-600 text-sm mb-2">
+                      <p className="text-white text-sm mb-2">
                         Deadline: {job.deadline}
                       </p>
-                      <p className="text-gray-600 text-sm mb-2">
+                      <p className="text-white text-sm mb-2">
                         Price Range: ${job.minPrice} - ${job.maxPrice}
                       </p>
                       <p className="text-base mb-2">
-                        {job.description}
-                      </p>
-                      <p className="text-base mb-2">
-                        Job Nature: {job.jobNature}
+                        {job.description.split(" ").slice(0, 20).join(" ")}
                       </p>
                       <Link to={`/details/${job._id}`}>
-                      <button className="px-5 py-2 rounded-3xl text-lg card-hover mt-4 bg-gradient-to-r from-teal-500 via-teal-300 to-teal-500">
-                        Bid Now
-                      </button>
-                    </Link>
+                        <button className="text-lg card-hover mt-4 bg-gradient-to-r from-slate-500 via-slate-300 to-slate-500">
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            style={{
+                              backgroundColor: "teal",
+                            }}
+                          >
+                            Bid Now
+                          </motion.button>
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 ))}
@@ -76,6 +111,35 @@ const Home = () => {
             </TabPanel>
           ))}
         </Tabs>
+      </div>
+
+      <GetAhead></GetAhead>
+
+      <div className="flex flex-col md:flex-col lg:flex-row-reverse justify-center items-center px-20 gap-10 py-10 bg-slate-800">
+        <div className="hero bg-sky-200 rounded-lg shadow-lg card-hover">
+          <div className="hero-content flex-col lg:flex-row-reverse">
+            <img
+              src="https://i.ibb.co/h2mWnCC/delivery-man.png"
+              className="max-w-sm rounded-lg shadow-2xl"
+              width={"200px"}
+            />
+            <div>
+              <Chat></Chat>
+            </div>
+          </div>
+        </div>
+        <div className="hero bg-sky-200 rounded-lg shadow-lg card-hover">
+          <div className="hero-content flex-col lg:flex-row">
+            <img
+              src="https://i.ibb.co/GCWjmym/24-hours-support.png"
+              className="max-w-sm rounded-lg shadow-2xl"
+              width={"200px"}
+            />
+            <div>
+              <h1 className="text-5xl font-bold">24/7 Support</h1>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

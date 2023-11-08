@@ -173,7 +173,7 @@ const Update = () => {
             type="submit"
             className="px-5 py-2 rounded-3xl text-lg card-hover mt-4 bg-gradient-to-r from-teal-500 via-sky-300 to-teal-500"
           >
-            ADD JOB
+            Update JOB
           </button>
         </div>
       </form>

@@ -4,24 +4,26 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
 import { useEffect } from "react";
+import axios from "axios";
 
 const MyPostedJob = () => {
   const allJobs = useLoaderData();
   const [jobs, setJobs] = useState(allJobs);
-  console.log(jobs);
   const { user } = useContext(AuthContext);
 
   if (!user) {
     return (
-      <div>
-        <p>Loading</p>
+      <div className="text-center mt-8">
+        <p className="text-2xl font-semibold text-gray-800">
+          Loading...
+        </p>
       </div>
     );
   }
+
   const filterMyJobs = jobs.filter((job) => job.employerEmail === user.email);
 
   const handleDelete = async (_id) => {
-    console.log(_id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -36,24 +38,20 @@ const MyPostedJob = () => {
           const response = await fetch(`http://localhost:5000/job/${_id}`, {
             method: "DELETE",
           });
-  
+
           if (response.ok) {
             const data = await response.json();
-            console.log(data);
-  
+
             if (data.deletedCount > 0) {
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              Swal.fire("Deleted!", "Your job has been deleted.", "success");
               const remaining = jobs.filter((job) => job._id !== _id);
-  
               setJobs(remaining);
             }
           } else {
-            // Handle any non-successful response here
             Swal.fire("Error", "Failed to delete the job.", "error");
           }
         } catch (error) {
           console.error("Error deleting job:", error);
-          // Handle the error (e.g., show an error message)
           Swal.fire("Error", "An error occurred while deleting the job.", "error");
         }
       }
@@ -61,28 +59,36 @@ const MyPostedJob = () => {
   };
 
   useEffect(() => {
-    document.title = "Job-Book|Posted Jobs";
-    const favicon = document.querySelector("link[rel*='icon']");
-    favicon.href = "/public/more.png";
+    document.title = "Job-Book | Posted Jobs";
   }, []);
-  
+
   return (
     <div>
-      <h1 className="text-2xl font-bold">My Posted Jobs</h1>
+      <div className="w-2/4 mx-auto">
+        <h1 className="text-3xl text-white font-semibold bg-slate-600 text-center py-4 mt-8 mb-4">
+        My Posted Jobs
+      </h1>
+      </div>
       {filterMyJobs.map((job) => (
-        <div key={job._id} className="bg-white p-4 my-4 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold">{job.jobTitle}</h2>
-          <p>Deadline: {job.deadline}</p>
-          <p>Category: {job.category}</p>
-          <p>Description: {job.description}</p>
-          <div className="mt-4">
+        <div key={job._id} className="bg-white p-4 my-4 rounded-lg shadow-lg">
+          <h2 className="text-2xl text-center font-semibold text-blue-500">Job Title: {job.jobTitle}</h2>
+          <p className=" text-center text-gray-600 mt-2">
+            Deadline: {job.deadline}
+          </p>
+          <p className=" text-center text-gray-600">
+            Category: {job.category}
+          </p>
+          <p className="text-sm mt-4 text-gray-600">
+            Description: {job.description}
+          </p>
+          <div className="mt-4 flex justify-between">
             <Link to={`/update/${job._id}`}>
-              <button className="px-5 py-2 rounded-3xl text-lg card-hover mt-4 bg-gradient-to-r from-rose-500 via-rose-300 to-rose-500">
+              <button className="px-5 py-2 rounded-lg text-lg bg-gradient-to-r from-green-700 via-green-600 to-green-700 text-white hover:bg-rose-600">
                 Update
               </button>
             </Link>
             <button
-              className="bg-red-500 text-white px-4 py-2 rounded"
+              className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
               onClick={() => handleDelete(job._id)}
             >
               Delete

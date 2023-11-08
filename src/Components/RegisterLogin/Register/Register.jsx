@@ -6,6 +6,7 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
 import { Helmet } from "react-helmet";
+import { useEffect } from "react";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
