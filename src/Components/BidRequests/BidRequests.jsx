@@ -105,26 +105,27 @@ const BidRequests = () => {
       {loading ? (
         <InfinitySpin width="500" color="#4fa94d" />
       ) : (
-        <table className="w-6/12 md:w-9/12 lg:w-9/12 border-collapse border mx-auto border-gray-400 mt-4">
+        <div className="overflow-x-auto">
+        <table className="w-full mt-4 border border-gray-400">
           <thead>
             <tr>
-              <th className="border border-gray-400">Job Title</th>
-              <th className="border border-gray-400">Email</th>
-              <th className="border border-gray-400">Deadline</th>
-              <th className="border border-gray-400">Price</th>
-              <th className="border border-gray-400">Status</th>
-              <th className="border border-gray-400">Actions</th>
+              <th className="p-4 md:p-4">Job Title</th>
+              <th className="p-4 md:p-4">Email</th>
+              <th className="p-4 md:p-4">Deadline</th>
+              <th className="p-4 md:p-4">Price</th>
+              <th className="p-4 md:p-4">Status</th>
+              <th className="p-4 md:p-4">Actions</th>
             </tr>
           </thead>
           <tbody>
             {filterBidRequests.map((request) => (
               <tr key={request._id}>
-                <td className="border border-gray-400">{request.jobTitle}</td>
-                <td className="border border-gray-400">{request.email}</td>
-                <td className="border border-gray-400">{request.deadline}</td>
-                <td className="border border-gray-400">{request.price}</td>
-                <td className="border border-gray-400">{request.status}</td>
-                <td className="border border-gray-400">
+                <td className="p-4 md:p-4">{request.jobTitle}</td>
+                <td className="p-4 md:p-4">{request.email}</td>
+                <td className="p-4 md:p-4">{request.deadline}</td>
+                <td className="p-4 md:p-4">{request.price}</td>
+                <td className="p-4 md:p-4">{request.status}</td>
+                <td className="p-4 md:p-4">
                   {request.status === "Pending" && (
                     <>
                       <button
@@ -173,6 +174,7 @@ const BidRequests = () => {
             ))}
           </tbody>
         </table>
+        </div>
       )}
 
       <ToastContainer></ToastContainer>

@@ -17,7 +17,8 @@ const MyBids = () => {
   const url = `/bidjob?email=${user?.email}`;
 
   useEffect(() => {
-    axiosSecure.get(url)
+    axiosSecure
+      .get(url)
       .then((res) => {
         setBids(res.data);
         setIsLoading(false);
@@ -87,17 +88,17 @@ const MyBids = () => {
 
   return (
     <div className="text-center">
-      <h1 className="text-2xl font-bold mt-4">My Bids</h1>
+      <h1 className="text-2xl md:text-3xl font-bold mt-4">My Bids</h1>
       {isLoading ? (
         <div className="mt-8">
           <InfinitySpin width="48" color="#4fa94d" />
         </div>
       ) : (
         <div className="mt-4">
-          <div className="w-1/3 m-auto">
+          <div className="w-2/3 md:w-1/3 lg:w-1/3 m-auto">
             <div className="flex justify-end mt-2 mb-4">
-              <div className="w-1/3">
-                <label className="block text-right text-sm font-medium text-gray-600">
+              <div className="w-2/3 md:w-1/3 lg:w-1/3 mr-3 flex justify-end items-center">
+                <label className="block text-right text-lg font-medium text-gray-600">
                   Sort by:
                 </label>
               </div>
@@ -113,37 +114,39 @@ const MyBids = () => {
               </div>
             </div>
           </div>
-          <table className="w-full mt-4 border border-gray-400">
-            <thead>
-              <tr>
-                <th className="p-4">Job Title</th>
-                <th className="p-4">Email</th>
-                <th className="p-4">Deadline</th>
-                <th className="p-4">Status</th>
-                <th className="p-4">Complete</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedBidJob.map((job) => (
-                <tr key={job._id}>
-                  <td className="p-4">{job.jobTitle}</td>
-                  <td className="p-4">{job.buyerEmail}</td>
-                  <td className="p-4">{job.deadline}</td>
-                  <td className="p-4">{job.status}</td>
-                  <td className="p-4">
-                    {job.status === "in progress" && (
-                      <button
-                        onClick={() => handleCompleteBid(job._id)}
-                        className="px-2 py-1 text-white bg-green-500 rounded"
-                      >
-                        Complete
-                      </button>
-                    )}
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full mt-4 border border-gray-400">
+              <thead>
+                <tr>
+                  <th className="p-4">Job Title</th>
+                  <th className="p-4">Email</th>
+                  <th className="p-4">Deadline</th>
+                  <th className="p-4">Status</th>
+                  <th className="p-4">Complete</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {sortedBidJob.map((job) => (
+                  <tr key={job._id}>
+                    <td className="p-4">{job.jobTitle}</td>
+                    <td className="p-4">{job.buyerEmail}</td>
+                    <td className="p-4">{job.deadline}</td>
+                    <td className="p-4">{job.status}</td>
+                    <td className="p-4">
+                      {job.status === "in progress" && (
+                        <button
+                          onClick={() => handleCompleteBid(job._id)}
+                          className="px-2 py-1 text-white bg-green-500 rounded"
+                        >
+                          Complete
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
       <ToastContainer />

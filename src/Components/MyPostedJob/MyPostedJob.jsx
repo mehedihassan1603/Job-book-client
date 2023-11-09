@@ -64,13 +64,13 @@ const MyPostedJob = () => {
 
   return (
     <div>
-      <div className="w-2/4 mx-auto">
+      <div className="w-full lg:w-2/4 mx-auto">
         <h1 className="text-3xl text-white font-semibold bg-slate-600 text-center py-4 mt-8 mb-4">
-        My Posted Jobs
-      </h1>
+          My Posted Jobs
+        </h1>
       </div>
       {filterMyJobs.map((job) => (
-        <div key={job._id} className="bg-white p-4 my-4 rounded-lg shadow-lg">
+        <div key={job._id} className="bg-white p-4 my-4 rounded-lg w-11/12 mx-auto shadow-lg">
           <h2 className="text-2xl text-center font-semibold text-blue-500">Job Title: {job.jobTitle}</h2>
           <p className=" text-center text-gray-600 mt-2">
             Deadline: {job.deadline}

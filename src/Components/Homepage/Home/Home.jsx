@@ -76,36 +76,37 @@ const Home = () => {
 
           {categories.map((category) => (
             <TabPanel key={category}>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-40 p-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full justify-center  gap-4 mb-20 p-4">
                 {groupedData[category].map((job, index) => (
                   <div
-                    className="bg-slate-600 rounded-lg shadow-md text-white"
+                    className="bg-white text-black rounded-lg shadow-md card-hover"
                     key={index}
                   >
                     <div className="p-4">
                       <h3 className="text-xl font-semibold mb-2">
                         {job.jobTitle}
                       </h3>
-                      <p className="text-white text-sm mb-2">
+                      <p className="text-black text-sm mb-2">
                         Published on: {job.postedOn}{" "}
                         {/* Added Published on date */}
                       </p>
-                      <p className="text-white text-sm mb-2">
+                      <p className="text-black text-sm mb-2">
                         Deadline: {job.deadline}
                       </p>
-                      <p className="text-white text-sm mb-2">
-                        Price Range: ${job.minPrice} - ${job.maxPrice}
+                      <p className="text-black text-sm mb-2">
+                        Salary Range: ${job.minPrice} - ${job.maxPrice}
                       </p>
                       <p className="text-base mb-2">
                         {job.description.split(" ").slice(0, 20).join(" ")}
                       </p>
                       <Link to={`/details/${job._id}`}>
-                        <button className="text-lg card-hover mt-4 bg-gradient-to-r from-slate-500 via-slate-300 to-slate-500">
+                        <button className="text-lg rounded-lg card-hover mt-4 bg-gradient-to-r from-slate-500 via-slate-300 to-slate-500">
                           <motion.button
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
                             style={{
                               backgroundColor: "teal",
+                              borderRadius: '10px'
                             }}
                           >
                             Bid Now
@@ -122,7 +123,7 @@ const Home = () => {
       </div>
 
 
-      <div className="flex flex-col md:flex-row lg:flex-row justify-around my-10 gap-10 items-center w-9/12 mx-auto text-black bg-blue-200 p-6">
+      <div className="flex flex-col md:flex-row lg:flex-row justify-around mb-20 gap-10 items-center w-9/12 mx-auto text-black bg-blue-200 p-6">
         <div className="" data-aos="slide-right">
           <img src="https://doortofuture.com/wp-content/uploads/2021/11/online-jobs-from-home-without-investment1.jpg" alt="" />
         </div>
