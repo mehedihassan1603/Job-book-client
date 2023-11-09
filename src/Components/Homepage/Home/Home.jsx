@@ -44,7 +44,7 @@ const Home = () => {
       <Welcome></Welcome>
       <div className="text-center bg-gray-300 w-11/12 mx-auto">
         <Tabs>
-          <TabList className="flex flex-col md:flex-row lg:flex-row justify-center bg-slate-600 space-x-4 p-4">
+          <TabList className="flex flex-col md:flex-row lg:flex-row justify-center bg-slate-800 space-x-4 p-4">
             {categories.map((category) => (
               <Tab
                 key={category}
@@ -83,20 +83,20 @@ const Home = () => {
                     key={index}
                   >
                     <div className="p-4">
-                      <h3 className="text-xl font-semibold mb-2">
+                      <h3 className="text-xl text-blue-800 font-semibold mb-2">
                         {job.jobTitle}
                       </h3>
-                      <p className="text-black text-sm mb-2">
+                      <p className="text-black text-base mb-2">
                         Published on: {job.postedOn}{" "}
                         {/* Added Published on date */}
                       </p>
-                      <p className="text-black text-sm mb-2">
+                      <p className="text-black text-base mb-2">
                         Deadline: {job.deadline}
                       </p>
-                      <p className="text-black text-sm mb-2">
+                      <p className="text-black text-base mb-2">
                         Salary Range: ${job.minPrice} - ${job.maxPrice}
                       </p>
-                      <p className="text-base mb-2">
+                      <p className="text-sm mb-2">
                         {job.description.split(" ").slice(0, 20).join(" ")}
                       </p>
                       <Link to={`/details/${job._id}`}>

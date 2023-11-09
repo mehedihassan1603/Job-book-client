@@ -1,7 +1,7 @@
                                     ## Project Features ##
                                 ----------------------------------
 
-Client Side Live Link: https://job-book-ae502.web.app
+Client Side Live Link: https://oval-beam.surge.sh/
 
 ## 1. Homepage:
     -There is a navbar, a welcome section, a Job list section with 3 category
@@ -37,4 +37,16 @@ Client Side Live Link: https://job-book-ae502.web.app
     - I add a chat option but i didnot fill this criteria
     - with this chat user and job owner chat each other in real time.
     -i will implement thi in future.
-## 10. Responsive
+## 10. JWT token implementation
+    -I implemented jwt token and create a token.
+    -store it on the client-side for both email/password-based authentication and social login.
+    -after logout remove token from cookie
+## 11. Responsive
+    -Responsive website for small, medium and large devices
+## 12. Sorting
+    -In My Bis page, there is sorting method in 2 way (deadline and status)
+    -user can check data with either deadline neither status
+## 13. some features
+    -Adding spinners when data load
+    -After dateover, then bid on  project button deactivate
+    -
